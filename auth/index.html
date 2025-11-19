@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Supabase Auth – Login & Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Supabase JS via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+
+    .app {
+      background: #020617;
+      border-radius: 16px;
+      padding: 24px 24px 32px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .message {
+      min-height: 24px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+
+    .message.error {
+      color: #fecaca;
+    }
+
+    .message.success {
+      color: #bbf7d0;
+    }
+
+    .tabs {
+      display: flex;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      padding: 4px;
+      background: #0b1220;
+    }
+
+    .tab {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      padding: 8px 0;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .tab.active {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    input {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: #e5e7eb;
+    }
+
+    input:focus {
+      outline: 2px solid #4f46e5;
+      outline-offset: 1px;
+    }
+
+    .btn {
+      margin-top: 8px;
+      padding: 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: #4f46e5;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>Child Health Portal</h1>
+    <p class="subtitle">
+      Login or sign up to manage your child’s vaccinations and appointments.
+    </p>
+
+    <div id="message" class="message"></div>
+
+    <div id="auth-section">
+      <div class="tabs">
+        <button id="tab-login" class="tab active">Login</button>
+        <button id="tab-signup" class="tab">Sign Up</button>
+      </div>
+
+      <!-- Login form -->
+      <form id="login-form" class="form">
+        <label>
+          Email
+          <input type="email" id="login-email" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="login-password" required />
+        </label>
+        <button type="submit" class="btn">Login</button>
+        <p class="hint">
+          After login you will be redirected to your dashboard.
+        </p>
+      </form>
+
+      <!-- Signup form -->
+      <form id="signup-form" class="form hidden">
+        <label>
+          Name
+          <input type="text" id="signup-name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" id="signup-email" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="signup-password" required minlength="6" />
+        </label>
+        <label>
+          Confirm password
+          <input type="password" id="signup-password-confirm" required minlength="6" />
+        </label>
+        <button type="submit" class="btn">Create account</button>
+        <p class="hint">
+          After signup you’ll go to the dashboard to fill details.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Supabase project credentials
+    const SUPABASE_URL = "https://hfytpmyqvdzdehembdpr.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmeXRwbXlxdmR6ZGVoZW1iZHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNTg3NzIsImV4cCI6MjA3NzkzNDc3Mn0.IBvAlibQX4ZpQeC1FMTPgPaD-2odx42Ec0CkilSGA4Y";
+
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const msgEl = document.getElementById("message");
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const tabLogin = document.getElementById("tab-login");
+    const tabSignup = document.getElementById("tab-signup");
+
+    function setMessage(text, type = "") {
+      msgEl.textContent = text || "";
+      msgEl.className = "message";
+      if (type) msgEl.classList.add(type);
+    }
+
+    function setFormLoading(formEl, isLoading) {
+      const btn = formEl.querySelector("button[type='submit']");
+      if (!btn) return;
+      if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
+      btn.disabled = isLoading;
+      btn.textContent = isLoading ? "Please wait..." : btn.dataset.originalText;
+    }
+
+    // Tabs
+    tabLogin.addEventListener("click", () => {
+      tabLogin.classList.add("active");
+      tabSignup.classList.remove("active");
+      loginForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
+      setMessage("");
+    });
+
+    tabSignup.addEventListener("click", () => {
+      tabSignup.classList.add("active");
+      tabLogin.classList.remove("active");
+      signupForm.classList.remove("hidden");
+      loginForm.classList.add("hidden");
+      setMessage("");
+    });
+
+    // Save/update basic info in public.users table (id, name, email, password)
+    async function upsertUserRow(user, extra = {}) {
+      const name = extra.name || user.user_metadata?.name || user.email;
+      const passwordToStore = extra.password || null;
+
+      const { error } = await sb
+        .from("users")      // your public.users table
+        .upsert(
+          {
+            id: user.id,
+            name: name,
+            email: user.email,
+            password: passwordToStore
+          },
+          { onConflict: "id" }
+        );
+
+      if (error) {
+        console.error("Error upserting users row:", error);
+      }
+    }
+
+    // SIGNUP
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setMessage("");
+
+      const name = document.getElementById("signup-name").value.trim();
+      const email = document.getElementById("signup-email").value.trim();
+      const password = document.getElementById("signup-password").value;
+      const confirm = document.getElementById("signup-password-confirm").value;
+
+      if (password !== confirm) {
+        setMessage("Passwords do not match.", "error");
+        return;
+      }
+
+      setFormLoading(signupForm, true);
+
+      const { data, error } = await sb.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name }
+        }
+      });
+
+      if (error) {
+        setFormLoading(signupForm, false);
+        setMessage(error.message, "error");
+        return;
+      }
+
+      // Immediately log the user in
+      const { data: loginData, error: loginError } = await sb.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      setFormLoading(signupForm, false);
+
+      if (loginError || !loginData.user) {
+        setMessage("Signup successful. Please login now.", "success");
+        tabLogin.click();
+        return;
+      }
+
+      const user = loginData.user;
+      await upsertUserRow(user, { name, password });
+
+      setMessage("Account created! Redirecting to dashboard...", "success");
+      window.location.href = "dashboard.html?first=1";
+    });
+
+    // LOGIN
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setMessage("");
+
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value;
+
+      setFormLoading(loginForm, true);
+
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+      setFormLoading(loginForm, false);
+
+      if (error) {
+        setMessage(error.message, "error");
+        return;
+      }
+
+      if (data && data.user) {
+        await upsertUserRow(data.user);
+        setMessage("Logged in! Redirecting...", "success");
+        window.location.href = "dashboard.html";
+      }
+    });
+
+    // If already logged in → go straight to dashboard
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { data, error } = await sb.auth.getSession();
+      if (error) return;
+
+      const session = data.session;
+      if (session && session.user) {
+        window.location.href = "dashboard.html";
+      }
+    });
+  </script>
+</body>
+</html>
