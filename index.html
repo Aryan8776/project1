@@ -2,358 +2,662 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Supabase Auth – Login & Signup</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+  <title>Child Health | Login & Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at top left, #2f4369 0, #1f2933 35%, #111827 100%);
+      --primary: #6366f1;
+      --primary-soft: rgba(99, 102, 241, 0.16);
+      --primary-strong: #4f46e5;
+      --accent: #f97316;
+      --card-bg: rgba(15, 23, 42, 0.9);
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --text-soft: #6b7280;
+    }
+
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     body {
-      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0f172a;
-      color: #e5e7eb;
+      padding: 18px;
     }
 
-    .app {
-      background: #020617;
-      border-radius: 16px;
-      padding: 24px 24px 32px;
+    .auth-shell {
+      max-width: 960px;
       width: 100%;
-      max-width: 480px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
     }
 
-    h1 {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 16px;
+    @media (max-width: 900px) {
+      .auth-shell {
+        grid-template-columns: 1fr;
+      }
     }
 
-    .subtitle {
-      font-size: 0.95rem;
-      color: #9ca3af;
-      text-align: center;
-      margin-bottom: 18px;
+    /* LEFT HERO */
+
+    .hero {
+      border-radius: 24px;
+      padding: 24px 22px;
+      background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.28), rgba(15, 23, 42, 0.96));
+      border: 1px solid rgba(129, 140, 248, 0.55);
+      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
     }
 
-    .message {
-      min-height: 24px;
-      margin-bottom: 12px;
-      font-size: 0.9rem;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.2), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
     }
 
-    .message.error {
-      color: #fecaca;
+    .hero-inner {
+      position: relative;
+      z-index: 1;
     }
 
-    .message.success {
-      color: #bbf7d0;
-    }
-
-    .tabs {
+    .brand-row {
       display: flex;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 16px;
-      border-radius: 999px;
-      padding: 4px;
-      background: #0b1220;
     }
 
-    .tab {
+    .logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 0 0, #f97316, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f9fafb;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+
+    .hero-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-muted);
+    }
+
+    .hero-highlight {
+      margin-top: 18px;
+      padding: 10px 11px;
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 12px;
+    }
+
+    .hero-highlight span {
+      color: #facc15;
+      font-weight: 500;
+    }
+
+    /* RIGHT AUTH CARD */
+
+    .auth-card {
+      border-radius: 24px;
+      padding: 22px 20px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(26px);
+    }
+
+    .auth-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .auth-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .auth-caption {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .auth-tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 2px;
+      font-size: 12px;
+    }
+
+    .auth-tab {
       flex: 1;
+      padding: 5px 12px;
+      border-radius: 999px;
       border: none;
       background: transparent;
-      color: #9ca3af;
-      padding: 8px 0;
-      border-radius: 999px;
+      color: var(--text-muted);
       cursor: pointer;
+      font-size: 12px;
       font-weight: 500;
-      font-size: 0.9rem;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
     }
 
-    .tab.active {
-      background: #4f46e5;
-      color: white;
+    .auth-tab.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #f9fafb;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.95);
     }
 
-    .form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .auth-body {
+      margin-top: 10px;
+    }
+
+    .field-group {
+      margin-bottom: 10px;
     }
 
     label {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.9rem;
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
     }
 
-    input {
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #e5e7eb;
-    }
-
-    input:focus {
-      outline: 2px solid #4f46e5;
-      outline-offset: 1px;
-    }
-
-    .btn {
-      margin-top: 8px;
-      padding: 10px;
+    .field-input {
+      width: 100%;
+      padding: 8px 11px;
       border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      background: #4f46e5;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, background 0.15s ease;
     }
 
-    .btn:disabled {
-      opacity: 0.6;
+    .field-input::placeholder {
+      color: rgba(148, 163, 184, 0.75);
+    }
+
+    .field-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+      transform: translateY(-1px);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .forgot-link {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: right;
+      margin-bottom: 10px;
       cursor: default;
     }
 
-    .hidden {
-      display: none;
+    .btn-primary {
+      width: 100%;
+      margin-top: 4px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.9);
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #f9fafb;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
     }
 
-    .hint {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      margin-top: 8px;
+    .btn-primary span.spinner {
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      border: 2px solid rgba(248, 250, 252, 0.4);
+      border-top-color: #f9fafb;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.98);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.75;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .auth-footer-text {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .auth-footer-text button {
+      border: none;
+      background: transparent;
+      color: #a5b4fc;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .error-text {
+      font-size: 11px;
+      color: #fecaca;
+      margin-top: 4px;
+      min-height: 14px;
+    }
+
+    .success-text {
+      font-size: 11px;
+      color: #bbf7d0;
+      margin-top: 4px;
+      min-height: 14px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* TOAST */
+
+    #toast {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.98);
+      color: #ecfdf5;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 50;
+    }
+
+    #toast.error {
+      background: rgba(220, 38, 38, 0.98);
+      color: #fee2e2;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+      .hero {
+        padding: 20px 18px;
+      }
+      .auth-card {
+        padding: 18px 16px 14px;
+      }
+      #toast {
+        left: 10px;
+        right: 10px;
+        justify-content: center;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <h1>Child Health Portal</h1>
-    <p class="subtitle">
-      Login or sign up to manage your child’s vaccinations and appointments.
-    </p>
+  <div class="auth-shell">
+    <!-- HERO / BRAND SIDE -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="brand-row">
+          <div class="logo-badge">C</div>
+          <div>
+            <div class="brand-name">Child Health</div>
+            <div class="brand-sub">Smart Care Tracker</div>
+          </div>
+        </div>
+        <h1 class="hero-title">Welcome to your child’s health hub.</h1>
+        <p class="hero-text">
+          Securely manage vaccinations, doctor appointments, and key details in one place.  
+          Log in to continue, or create a new account to get started.
+        </p>
 
-    <div id="message" class="message"></div>
+        <div class="hero-tags">
+          <div class="hero-tag">Vaccination timeline</div>
+          <div class="hero-tag">Appointment planner</div>
+          <div class="hero-tag">Virtual child ID</div>
+        </div>
 
-    <div id="auth-section">
-      <div class="tabs">
-        <button id="tab-login" class="tab active">Login</button>
-        <button id="tab-signup" class="tab">Sign Up</button>
+        <div class="hero-highlight">
+          <span>Tip:</span> Use the same email here and on all devices to keep your child’s records synced with the dashboard.
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTH CARD -->
+    <section class="auth-card">
+      <div class="auth-header">
+        <div>
+          <div class="auth-title">Sign in to dashboard</div>
+          <div class="auth-caption">Use the email and password linked to your Supabase account.</div>
+        </div>
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login">Log in</button>
+          <button class="auth-tab" id="tab-signup">Sign up</button>
+        </div>
       </div>
 
-      <!-- Login form -->
-      <form id="login-form" class="form">
-        <label>
-          Email
-          <input type="email" id="login-email" required />
-        </label>
-        <label>
-          Password
-          <input type="password" id="login-password" required />
-        </label>
-        <button type="submit" class="btn">Login</button>
-        <p class="hint">
-          After login you will be redirected to your dashboard.
-        </p>
-      </form>
+      <div class="auth-body">
+        <!-- LOGIN FORM -->
+        <form id="login-form">
+          <div class="field-group">
+            <label for="login-email">Email</label>
+            <input
+              type="email"
+              id="login-email"
+              class="field-input"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+          <div class="field-group">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              class="field-input"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <div class="forgot-link">Forgot password? (reset via Supabase Auth)</div>
+          <button type="submit" class="btn-primary" id="login-btn">
+            <span>Log in</span>
+          </button>
+          <div class="error-text" id="login-error"></div>
+        </form>
 
-      <!-- Signup form -->
-      <form id="signup-form" class="form hidden">
-        <label>
-          Name
-          <input type="text" id="signup-name" required />
-        </label>
-        <label>
-          Email
-          <input type="email" id="signup-email" required />
-        </label>
-        <label>
-          Password
-          <input type="password" id="signup-password" required minlength="6" />
-        </label>
-        <label>
-          Confirm password
-          <input type="password" id="signup-password-confirm" required minlength="6" />
-        </label>
-        <button type="submit" class="btn">Create account</button>
-        <p class="hint">
-          After signup you’ll go to the dashboard to fill details.
-        </p>
-      </form>
-    </div>
+        <!-- SIGNUP FORM -->
+        <form id="signup-form" class="hidden">
+          <div class="field-group">
+            <label for="signup-name">Child name</label>
+            <input
+              type="text"
+              id="signup-name"
+              class="field-input"
+              placeholder="Child's full name"
+              required
+            />
+          </div>
+          <div class="field-group">
+            <label for="signup-email">Parent email</label>
+            <input
+              type="email"
+              id="signup-email"
+              class="field-input"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+          <div class="field-group">
+            <label for="signup-password">Password</label>
+            <input
+              type="password"
+              id="signup-password"
+              class="field-input"
+              placeholder="Create a password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-primary" id="signup-btn">
+            <span>Create account</span>
+          </button>
+          <div class="error-text" id="signup-error"></div>
+          <div class="success-text" id="signup-success"></div>
+        </form>
+      </div>
+
+      <div class="auth-footer-text">
+        Using this for the first time?  
+        <button type="button" id="footer-toggle">Create a free account</button>
+      </div>
+    </section>
   </div>
 
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
- 
     const SUPABASE_URL = "https://hfytpmyqvdzdehembdpr.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmeXRwbXlxdmR6ZGVoZW1iZHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNTg3NzIsImV4cCI6MjA3NzkzNDc3Mn0.IBvAlibQX4ZpQeC1FMTPgPaD-2odx42Ec0CkilSGA4Y";
 
     const { createClient } = supabase;
     const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const msgEl = document.getElementById("message");
-    const loginForm = document.getElementById("login-form");
-    const signupForm = document.getElementById("signup-form");
     const tabLogin = document.getElementById("tab-login");
     const tabSignup = document.getElementById("tab-signup");
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const footerToggle = document.getElementById("footer-toggle");
 
-    function setMessage(text, type = "") {
-      msgEl.textContent = text || "";
-      msgEl.className = "message";
-      if (type) msgEl.classList.add(type);
+    const loginBtn = document.getElementById("login-btn");
+    const signupBtn = document.getElementById("signup-btn");
+
+    const loginError = document.getElementById("login-error");
+    const signupError = document.getElementById("signup-error");
+    const signupSuccess = document.getElementById("signup-success");
+
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      toast.textContent = "";
+      toast.className = "";
+      if (type === "error") toast.classList.add("error");
+      toast.innerHTML = (type === "error" ? "⚠️ " : "✅ ") + message;
+      toast.classList.add("show");
+      clearTimeout(showToast._timeoutId);
+      showToast._timeoutId = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
     }
 
-    function setFormLoading(formEl, isLoading) {
-      const btn = formEl.querySelector("button[type='submit']");
+    function setButtonLoading(btn, isLoading, defaultText) {
       if (!btn) return;
-      if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
-      btn.disabled = isLoading;
-      btn.textContent = isLoading ? "Please wait..." : btn.dataset.originalText;
+      if (isLoading) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span><span>Working...</span>';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<span>' + defaultText + '</span>';
+      }
     }
 
-    // Tabs
-    tabLogin.addEventListener("click", () => {
+    function switchToLogin() {
       tabLogin.classList.add("active");
       tabSignup.classList.remove("active");
       loginForm.classList.remove("hidden");
       signupForm.classList.add("hidden");
-      setMessage("");
-    });
+      footerToggle.textContent = "Create a free account";
+      loginError.textContent = "";
+      signupError.textContent = "";
+      signupSuccess.textContent = "";
+    }
 
-    tabSignup.addEventListener("click", () => {
+    function switchToSignup() {
       tabSignup.classList.add("active");
       tabLogin.classList.remove("active");
       signupForm.classList.remove("hidden");
       loginForm.classList.add("hidden");
-      setMessage("");
-    });
-
-    // Save/update basic info in public.users table (id, name, email, password)
-    async function upsertUserRow(user, extra = {}) {
-      const name = extra.name || user.user_metadata?.name || user.email;
-      const passwordToStore = extra.password || null;
-
-      const { error } = await sb
-        .from("users")    
-        .upsert(
-          {
-            id: user.id,
-            name: name,
-            email: user.email,
-            password: passwordToStore
-          },
-          { onConflict: "id" }
-        );
-
-      if (error) {
-        console.error("Error upserting users row:", error);
-      }
+      footerToggle.textContent = "Back to login";
+      loginError.textContent = "";
+      signupError.textContent = "";
+      signupSuccess.textContent = "";
     }
 
-    // SIGNUP
+    tabLogin.addEventListener("click", switchToLogin);
+    tabSignup.addEventListener("click", switchToSignup);
+    footerToggle.addEventListener("click", () => {
+      if (loginForm.classList.contains("hidden")) {
+        switchToLogin();
+      } else {
+        switchToSignup();
+      }
+    });
+
+    // LOGIN HANDLER
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      loginError.textContent = "";
+      setButtonLoading(loginBtn, true, "Log in");
+
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value;
+
+      const { data, error } = await sb.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      setButtonLoading(loginBtn, false, "Log in");
+
+      if (error) {
+        console.error("Login error:", error);
+        loginError.textContent = error.message || "Login failed. Please check your details.";
+        showToast("Login failed", "error");
+        return;
+      }
+
+      showToast("Login successful");
+      window.location.href = "dashboard.html";
+    });
+
+    // SIGNUP HANDLER
     signupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      setMessage("");
+      signupError.textContent = "";
+      signupSuccess.textContent = "";
+      setButtonLoading(signupBtn, true, "Create account");
 
       const name = document.getElementById("signup-name").value.trim();
       const email = document.getElementById("signup-email").value.trim();
       const password = document.getElementById("signup-password").value;
-      const confirm = document.getElementById("signup-password-confirm").value;
-
-      if (password !== confirm) {
-        setMessage("Passwords do not match.", "error");
-        return;
-      }
-
-      setFormLoading(signupForm, true);
 
       const { data, error } = await sb.auth.signUp({
         email,
         password,
         options: {
-          data: { name }
+          data: { name } // saved in user_metadata
         }
       });
 
-      if (error) {
-        setFormLoading(signupForm, false);
-        setMessage(error.message, "error");
-        return;
-      }
-
-      // Immediately log the user in
-      const { data: loginData, error: loginError } = await sb.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      setFormLoading(signupForm, false);
-
-      if (loginError || !loginData.user) {
-        setMessage("Signup successful. Please login now.", "success");
-        tabLogin.click();
-        return;
-      }
-
-      const user = loginData.user;
-      await upsertUserRow(user, { name, password });
-
-      setMessage("Account created! Redirecting to dashboard...", "success");
-      window.location.href = "dashboard.html?first=1";
-    });
-
-    // LOGIN
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      setMessage("");
-
-      const email = document.getElementById("login-email").value.trim();
-      const password = document.getElementById("login-password").value;
-
-      setFormLoading(loginForm, true);
-
-      const { data, error } = await sb.auth.signInWithPassword({ email, password });
-
-      setFormLoading(loginForm, false);
+      setButtonLoading(signupBtn, false, "Create account");
 
       if (error) {
-        setMessage(error.message, "error");
+        console.error("Signup error:", error);
+        signupError.textContent = error.message || "Signup failed. Please try again.";
+        showToast("Signup failed", "error");
         return;
       }
 
-      if (data && data.user) {
-        await upsertUserRow(data.user);
-        setMessage("Logged in! Redirecting...", "success");
-        window.location.href = "dashboard.html";
-      }
+      signupSuccess.textContent = "Account created! You can now log in.";
+      showToast("Account created");
+      switchToLogin();
     });
 
-    // If already logged in → go straight to dashboard
-    document.addEventListener("DOMContentLoaded", async () => {
-      const { data, error } = await sb.auth.getSession();
-      if (error) return;
-
-      const session = data.session;
-      if (session && session.user) {
+    // If user already logged in → go straight to dashboard
+    (async () => {
+      const { data, error } = await sb.auth.getUser();
+      if (!error && data && data.user) {
         window.location.href = "dashboard.html";
       }
-    });
+    })();
   </script>
 </body>
 </html>
-
