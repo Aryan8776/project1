@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* same theme tokens */
     :root {
       --bg-gradient: radial-gradient(circle at top left, #2f4369 0, #1f2933 35%, #111827 100%);
       --primary: #6366f1;
@@ -117,16 +116,18 @@
       transform:translateY(-1px);
     }
     .btn-primary{
-      margin-top:6px;padding:8px 16px;border-radius:999px;
-      border:1px solid rgba(129,140,248,0.9);
+      margin-top:10px;padding:8px 18px;border-radius:999px;border:1px solid rgba(129,140,248,0.9);
       background:linear-gradient(135deg,var(--primary),#4f46e5);
       color:#f9fafb;font-size:12px;font-weight:500;cursor:pointer;
       display:inline-flex;align-items:center;gap:6px;
-      box-shadow:0 16px 32px rgba(15,23,42,0.95);
+      box-shadow:0 14px 30px rgba(15,23,42,0.9);
       transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
     }
-    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 20px 42px rgba(15,23,42,0.98);filter:brightness(1.06);}
-    .section-note{font-size:12px;color:var(--text-soft);margin-top:6px;}
+    .btn-primary:hover{transform:translateY(-1px) scale(1.01);box-shadow:0 20px 40px rgba(15,23,42,1);filter:brightness(1.03);}
+    .section-note{font-size:11px;color:var(--text-soft);margin-top:8px;}
+    .toast{position:fixed;bottom:18px;right:18px;padding:8px 14px;border-radius:999px;font-size:12px;background:rgba(15,23,42,0.96);border:1px solid rgba(148,163,184,0.6);box-shadow:0 18px 40px rgba(15,23,42,0.9);opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease;z-index:40;}
+    .toast.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+    .toast.error{border-color:rgba(248,113,113,0.7);color:#fecaca;}
   </style>
 </head>
 <body>
@@ -142,7 +143,7 @@
         </div>
         <div class="sidebar-section-title">Navigation</div>
         <ul class="nav-links">
-          <li><a href="log.html"><span class="dot"></span>Overview</a></li>
+          <li><a href="dashboard.html"><span class="dot"></span>Overview</a></li>
           <li><a href="vaccinations.html"><span class="dot"></span>Vaccinations</a></li>
           <li><a href="appointments.html"><span class="dot"></span>Appointments</a></li>
           <li><a href="profile.html" class="active"><span class="dot"></span>Child Profile</a></li>
@@ -163,8 +164,8 @@
           <div class="page-subtitle">Virtual ID and core information.</div>
         </div>
         <div class="user-chip">
-          <button class="btn-ghost" onclick="location.href='log.html'">Back to dashboard</button>
-          <div class="user-avatar">A</div>
+          <button class="btn-ghost" onclick="location.href='dashboard.html'">Back to dashboard</button>
+          <div class="user-avatar" id="user-initial-prof">A</div>
         </div>
       </header>
 
@@ -179,11 +180,11 @@
           </div>
 
           <div class="profile-row">
-            <div class="profile-avatar">A</div>
+            <div class="profile-avatar" id="profile-avatar-letter">A</div>
             <div>
-              <div class="profile-text-main">Aryan Chavan</div>
+              <div class="profile-text-main" id="profile-name-display">Child Name</div>
               <div class="profile-text-sub">
-                Parent email: aryan.chavan24@gmail.com<br/>
+                Parent email: <span id="profile-parent-email">-</span><br/>
                 ID status: Active
               </div>
             </div>
@@ -192,7 +193,7 @@
           <div class="form-grid">
             <div>
               <label for="child-name">Child name</label>
-              <input id="child-name" type="text" value="Aryan Chavan" />
+              <input id="child-name" type="text" placeholder="Full name" />
             </div>
             <div>
               <label for="child-dob">Date of birth</label>
@@ -201,27 +202,41 @@
             <div>
               <label for="child-gender">Gender</label>
               <select id="child-gender">
-                <option>Not specified</option>
-                <option>Female</option>
+                <option value="">Select</option>
                 <option>Male</option>
+                <option>Female</option>
                 <option>Other</option>
               </select>
             </div>
             <div>
               <label for="blood-group">Blood group</label>
-              <input id="blood-group" type="text" value="B+" />
+              <input id="blood-group" type="text" placeholder="e.g. B+ve" />
             </div>
             <div>
-              <label for="height">Height (cm)</label>
-              <input id="height" type="number" placeholder="e.g. 120" />
+              <label for="height-cm">Height (cm)</label>
+              <input id="height-cm" type="number" min="0" step="0.1" />
             </div>
             <div>
-              <label for="weight">Weight (kg)</label>
-              <input id="weight" type="number" placeholder="e.g. 22" />
+              <label for="weight-kg">Weight (kg)</label>
+              <input id="weight-kg" type="number" min="0" step="0.1" />
+            </div>
+            <div style="grid-column:1/-1;">
+              <label for="allergies">Allergies</label>
+              <input id="allergies" type="text" placeholder="Peanuts, dust, medicine, etc." />
+            </div>
+            <div style="grid-column:1/-1;">
+              <label for="conditions">Chronic conditions</label>
+              <input id="conditions" type="text" placeholder="Asthma, diabetes, etc." />
             </div>
           </div>
 
-          <button class="btn-primary" type="button">Save profile</button>
+          <button class="btn-primary" id="profile-save-btn" type="button">
+            <span>Save profile</span>
+          </button>
+
+          <p class="section-note">
+            Profile is stored in Supabase table <strong>child_profiles</strong> and reused across all modules.
+          </p>
         </div>
 
         <div class="card">
@@ -235,7 +250,7 @@
           <div class="form-grid">
             <div>
               <label for="parent-name">Parent / Guardian</label>
-              <input id="parent-name" type="text" value="Aryan's Parent" />
+              <input id="parent-name" type="text" placeholder="Parent / guardian name" />
             </div>
             <div>
               <label for="parent-phone">Phone</label>
@@ -266,5 +281,143 @@
       </section>
     </main>
   </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://hfytpmyqvdzdehembdpr.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmeXRwbXlxdmR6ZGVoZW1iZHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNTg3NzIsImV4cCI6MjA3NzkzNDc3Mn0.IBvAlibQX4ZpQeC1FMTPgPaD-2odx42Ec0CkilSGA4Y";
+
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast";
+      if (type === "error") toast.classList.add("error");
+      toast.classList.add("show");
+      clearTimeout(showToast._timeoutId);
+      showToast._timeoutId = setTimeout(() => toast.classList.remove("show"), 2500);
+    }
+
+    function setButtonLoading(buttonId, isLoading, defaultText) {
+      const btn = document.getElementById(buttonId);
+      if (!btn) return;
+      if (isLoading) {
+        btn.disabled = true;
+        btn.innerHTML = "<span>Saving...</span>";
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = "<span>" + defaultText + "</span>";
+      }
+    }
+
+    async function getCurrentUser() {
+      const { data, error } = await sb.auth.getUser();
+      if (error || !data.user) {
+        window.location.href = "index.html";
+        return null;
+      }
+      return data.user;
+    }
+
+    function fillProfileCard(user, row) {
+      const name = row?.child_name || row?.name || user.user_metadata?.name || "Child";
+      const email = user.email || "-";
+
+      document.getElementById("profile-name-display").textContent = name;
+      document.getElementById("profile-parent-email").textContent = email;
+      document.getElementById("profile-avatar-letter").textContent = name.charAt(0).toUpperCase();
+    }
+
+    function fillFormFromRow(row) {
+      if (!row) return;
+      document.getElementById("child-name").value = row.child_name || "";
+      document.getElementById("child-dob").value = row.dob || "";
+      document.getElementById("child-gender").value = row.gender || "";
+      document.getElementById("blood-group").value = row.blood_group || "";
+      document.getElementById("height-cm").value = row.height_cm || "";
+      document.getElementById("weight-kg").value = row.weight_kg || "";
+      document.getElementById("allergies").value = row.allergies || "";
+      document.getElementById("conditions").value = row.conditions || "";
+      document.getElementById("parent-name").value = row.parent_name || "";
+      document.getElementById("parent-phone").value = row.parent_phone || "";
+      document.getElementById("address-line").value = row.address || "";
+      document.getElementById("city").value = row.city || "";
+      document.getElementById("state").value = row.state || "";
+      document.getElementById("pincode").value = row.pincode || "";
+    }
+
+    async function loadProfile(user) {
+      const { data: row, error } = await sb
+        .from("child_profiles")
+        .select("*")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (error) {
+        console.error("Error loading child profile:", error);
+        showToast("Error loading profile", "error");
+      }
+
+      fillProfileCard(user, row || {});
+      fillFormFromRow(row || {});
+    }
+
+    async function saveProfile() {
+      const user = await getCurrentUser();
+      if (!user) return;
+
+      const payload = {
+        user_id: user.id,
+        child_name: document.getElementById("child-name").value || null,
+        dob: document.getElementById("child-dob").value || null,
+        gender: document.getElementById("child-gender").value || null,
+        blood_group: document.getElementById("blood-group").value || null,
+        height_cm: document.getElementById("height-cm").value || null,
+        weight_kg: document.getElementById("weight-kg").value || null,
+        allergies: document.getElementById("allergies").value || null,
+        conditions: document.getElementById("conditions").value || null,
+        parent_name: document.getElementById("parent-name").value || null,
+        parent_phone: document.getElementById("parent-phone").value || null,
+        address: document.getElementById("address-line").value || null,
+        city: document.getElementById("city").value || null,
+        state: document.getElementById("state").value || null,
+        pincode: document.getElementById("pincode").value || null
+      };
+
+      setButtonLoading("profile-save-btn", true, "Save profile");
+
+      const { error } = await sb
+        .from("child_profiles")
+        .upsert(payload, { onConflict: "user_id" });
+
+      setButtonLoading("profile-save-btn", false, "Save profile");
+
+      if (error) {
+        console.error("Error saving profile:", error);
+        showToast("Error saving profile", "error");
+        alert("Error saving child profile: " + (error.message || "check console"));
+        return;
+      }
+
+      showToast("Profile saved");
+      await loadProfile(user);
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const user = await getCurrentUser();
+      if (!user) return;
+
+      const avatar = document.getElementById("user-initial-prof");
+      avatar.textContent = (user.email || "U").charAt(0).toUpperCase();
+
+      await loadProfile(user);
+
+      document.getElementById("profile-save-btn").addEventListener("click", saveProfile);
+    });
+  </script>
 </body>
 </html>
