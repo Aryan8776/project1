@@ -11,470 +11,166 @@
     :root {
       --bg-gradient: radial-gradient(circle at top left, #2f4369 0, #1f2933 35%, #111827 100%);
       --primary: #6366f1;
-      --primary-soft: rgba(99, 102, 241, 0.16);
+      --primary-soft: rgba(99,102,241,0.16);
       --primary-strong: #4f46e5;
       --accent: #f97316;
-      --card-bg: rgba(15, 23, 42, 0.9);
-      --border-subtle: rgba(148, 163, 184, 0.4);
+      --card-bg: rgba(15,23,42,0.9);
+      --border-subtle: rgba(148,163,184,0.4);
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
       --text-soft: #6b7280;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      min-height:100vh;background:var(--bg-gradient);color:var(--text-main);
     }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh;
-      background: var(--bg-gradient);
-      color: var(--text-main);
+    .app-shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh;}
+    @media(max-width:900px){.app-shell{grid-template-columns:1fr;}}
+    .sidebar{
+      padding:20px 18px;border-right:1px solid rgba(148,163,184,0.3);
+      background:linear-gradient(180deg,rgba(15,23,42,0.97),rgba(15,23,42,0.92),rgba(17,24,39,0.97));
+      backdrop-filter:blur(20px);display:flex;flex-direction:column;gap:24px;
     }
-
-    /* APP SHELL */
-    .app-shell {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      min-height: 100vh;
+    .sidebar-header{display:flex;align-items:center;gap:10px;}
+    .logo-badge{
+      width:32px;height:32px;border-radius:12px;
+      background:radial-gradient(circle at 0 0,#f97316,#6366f1);
+      display:flex;align-items:center;justify-content:center;
+      color:#f9fafb;font-weight:700;font-size:17px;
+      box-shadow:0 14px 30px rgba(15,23,42,0.9);
     }
-
-    @media (max-width: 900px) {
-      .app-shell {
-        grid-template-columns: 1fr;
-      }
+    .brand-text-main{font-size:17px;font-weight:600;letter-spacing:.02em;}
+    .brand-text-sub{font-size:11px;color:var(--text-soft);text-transform:uppercase;letter-spacing:.16em;}
+    .sidebar-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--text-soft);margin:16px 4px 8px;}
+    .nav-links{list-style:none;display:flex;flex-direction:column;gap:4px;}
+    .nav-links li a{
+      display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:12px;
+      text-decoration:none;color:var(--text-muted);font-size:13px;
+      transition:background .15s ease,color .15s ease,transform .1s ease;
     }
-
-    /* SIDEBAR */
-    .sidebar {
-      padding: 20px 18px;
-      border-right: 1px solid rgba(148, 163, 184, 0.3);
-      background: linear-gradient(
-        180deg,
-        rgba(15, 23, 42, 0.97) 0%,
-        rgba(15, 23, 42, 0.92) 50%,
-        rgba(17, 24, 39, 0.97) 100%
-      );
-      backdrop-filter: blur(20px);
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      position: relative;
-      z-index: 10;
+    .nav-links li a span.dot{width:7px;height:7px;border-radius:999px;background:rgba(148,163,184,0.9);}
+    .nav-links li a:hover{background:rgba(31,41,55,0.9);color:#e5e7eb;transform:translateY(-1px);}
+    .nav-links li a.active{background:rgba(37,99,235,0.16);color:#e5e7eb;border:1px solid rgba(129,140,248,0.9);}
+    .nav-links li a.active span.dot{background:#6366f1;}
+    .sidebar-footer{margin-top:auto;font-size:11px;color:var(--text-soft);display:flex;justify-content:space-between;gap:8px;}
+    .badge-soft{padding:3px 9px;border-radius:999px;border:1px solid rgba(148,163,184,0.5);color:var(--text-muted);}
+    .main{padding:20px 26px 24px;display:flex;flex-direction:column;gap:18px;}
+    @media(max-width:700px){.main{padding:16px 14px 20px;}}
+    .main-header{display:flex;justify-content:space-between;align-items:center;gap:14px;}
+    .page-title{display:flex;flex-direction:column;gap:4px;}
+    .page-title h1{font-size:22px;font-weight:600;}
+    .page-subtitle{font-size:12px;color:var(--text-soft);}
+    .user-chip{display:flex;align-items:center;gap:10px;}
+    .user-avatar{
+      width:32px;height:32px;border-radius:999px;
+      background:radial-gradient(circle at 0 0,#f97316,#6366f1);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;font-size:15px;color:#f9fafb;
+      box-shadow:0 14px 30px rgba(15,23,42,0.9);
     }
-
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .btn-ghost{
+      padding:7px 12px;border-radius:999px;border:1px solid rgba(148,163,184,0.5);
+      background:rgba(15,23,42,0.9);color:var(--text-muted);font-size:11px;cursor:pointer;
+      transition:background .15s ease,transform .1s ease,box-shadow .15s ease;
     }
-
-    .logo-badge {
-      width: 32px;
-      height: 32px;
-      border-radius: 12px;
-      background: radial-gradient(circle at 0 0, #f97316, #6366f1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: 700;
-      color: #f9fafb;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+    .btn-ghost:hover{background:rgba(31,41,55,0.98);transform:translateY(-1px);box-shadow:0 12px 26px rgba(15,23,42,0.9);}
+    .card{
+      background:var(--card-bg);
+      border-radius:20px;
+      border:1px solid var(--border-subtle);
+      padding:16px 16px 14px;
+      box-shadow:0 24px 50px rgba(15,23,42,0.9);
+      backdrop-filter:blur(28px);
     }
-
-    .brand-text-main {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+    .grid-2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;}
+    @media(max-width:1050px){.grid-2{grid-template-columns:1fr;}}
+    .section-header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
+    .section-header h2{font-size:16px;font-weight:600;}
+    .section-sub{font-size:12px;color:var(--text-soft);}
+    .pill-label{
+      font-size:10px;text-transform:uppercase;letter-spacing:.16em;
+      padding:3px 8px;border-radius:999px;border:1px solid rgba(148,163,184,0.6);color:var(--text-soft);
     }
-
-    .brand-text-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+    .section-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;margin-bottom:8px;}
+    .metric-pill{
+      font-size:11px;padding:4px 10px;border-radius:999px;
+      background:rgba(15,23,42,0.94);
+      border:1px solid rgba(148,163,184,0.5);
+      display:inline-flex;align-items:center;gap:6px;
     }
-
-    .sidebar-section-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-soft);
-      margin: 16px 4px 8px;
+    .metric-label{color:var(--text-soft);}
+    .metric-value{font-weight:600;color:#e5e7eb;}
+    .status-text{font-size:12px;color:var(--text-soft);margin-bottom:6px;}
+    .form-inline{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:4px;margin-bottom:6px;}
+    label{font-size:12px;color:var(--text-soft);margin-bottom:3px;display:block;}
+    input,select{
+      width:100%;padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(55,65,81,0.9);
+      background:rgba(15,23,42,0.96);
+      color:#e5e7eb;font-size:12px;outline:none;
+      transition:border .15s ease,box-shadow .15s ease,transform .1s ease,background .15s ease;
     }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    input::placeholder{color:rgba(148,163,184,0.8);}
+    input:focus,select:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 1px rgba(129,140,248,0.7);
+      background:rgba(15,23,42,0.98);
+      transform:translateY(-1px);
     }
-
-    .nav-links li a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 11px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 13px;
-      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    .btn-primary{
+      margin-top:8px;padding:8px 18px;border-radius:999px;border:1px solid rgba(129,140,248,0.9);
+      background:linear-gradient(135deg,var(--primary),var(--primary-strong));
+      color:#f9fafb;font-size:12px;font-weight:500;cursor:pointer;
+      display:inline-flex;align-items:center;gap:6px;
+      box-shadow:0 14px 30px rgba(15,23,42,0.9);
+      transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
     }
-
-    .nav-links li a span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.9);
+    .btn-primary:hover{transform:translateY(-1px) scale(1.01);box-shadow:0 20px 40px rgba(15,23,42,1);filter:brightness(1.03);}
+    table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px;}
+    thead{background:rgba(15,23,42,0.96);}
+    th,td{padding:7px 8px;border-bottom:1px solid rgba(30,41,59,0.85);text-align:left;}
+    th{font-weight:500;color:var(--text-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em;}
+    tbody tr:hover{background:rgba(15,23,42,0.95);}
+    .pill{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:3px 9px;border-radius:999px;font-size:11px;
+      border:1px solid rgba(148,163,184,0.7);
+      color:var(--text-muted);background:rgba(15,23,42,0.96);
     }
-
-    .nav-links li a:hover {
-      background: rgba(31, 41, 55, 0.9);
-      color: #e5e7eb;
-      transform: translateY(-1px);
+    .pill-scheduled{
+      background:rgba(56,189,248,0.12);
+      color:#7dd3fc;
+      border-color:rgba(56,189,248,0.7);
     }
-
-    .nav-links li a.active {
-      background: rgba(37, 99, 235, 0.16);
-      color: #e5e7eb;
-      border: 1px solid rgba(129, 140, 248, 0.9);
+    .pill-given{
+      background:rgba(22,163,74,0.16);
+      color:#4ade80;
+      border-color:rgba(74,222,128,0.7);
     }
-
-    .nav-links li a.active span.dot {
-      background: #6366f1;
+    .pill-missed{
+      background:rgba(248,113,113,0.18);
+      color:#fecaca;
+      border-color:rgba(248,113,113,0.8);
     }
-
-    .sidebar-footer {
-      margin-top: auto;
-      font-size: 11px;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
+    .filters-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;margin-top:4px;}
+    .filters-row input{max-width:180px;}
+    .note-text{font-size:11px;color:var(--text-soft);margin-top:4px;}
+    .toast{
+      position:fixed;bottom:18px;right:18px;
+      padding:8px 14px;border-radius:999px;font-size:12px;
+      background:rgba(15,23,42,0.96);border:1px solid rgba(148,163,184,0.6);
+      box-shadow:0 18px 40px rgba(15,23,42,0.9);
+      opacity:0;pointer-events:none;transform:translateY(6px);
+      transition:opacity .18s ease,transform .18s ease;
+      z-index:40;
     }
-
-    .badge-soft {
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-muted);
-    }
-
-    /* MAIN */
-    .main {
-      padding: 20px 26px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    @media (max-width: 700px) {
-      .main {
-        padding: 16px 14px 20px;
-      }
-    }
-
-    .main-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .page-title {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .page-title h1 {
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    .page-subtitle {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .user-chip {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .user-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 0 0, #f97316, #6366f1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 15px;
-      color: #f9fafb;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
-    }
-
-    .btn-ghost {
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      font-size: 11px;
-      cursor: pointer;
-      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-    }
-
-    .btn-ghost:hover {
-      background: rgba(31, 41, 55, 0.98);
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
-    }
-
-    /* CARDS & LAYOUT */
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      border: 1px solid var(--border-subtle);
-      padding: 16px 16px 14px;
-      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(28px);
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 1050px) {
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .section-header h2 {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .section-sub {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .pill-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--text-soft);
-    }
-
-    .section-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
-      margin-bottom: 8px;
-    }
-
-    .metric-pill {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.94);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .metric-label {
-      color: var(--text-soft);
-    }
-
-    .metric-value {
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .status-text {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-    }
-
-    /* FORM & TABLE */
-    .form-inline {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-      margin-top: 4px;
-      margin-bottom: 6px;
-    }
-
-    label {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 3px;
-      display: block;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      font-size: 12px;
-      outline: none;
-      transition: border 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, background 0.15s ease;
-    }
-
-    input::placeholder {
-      color: rgba(148, 163, 184, 0.8);
-    }
-
-    input:focus, select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      margin-top: 4px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(129, 140, 248, 0.9);
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: #f9fafb;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.95);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 42px rgba(15, 23, 42, 0.98);
-      filter: brightness(1.06);
-    }
-
-    .table-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      margin-top: 8px;
-      margin-bottom: 4px;
-    }
-
-    .table-tools input,
-    .table-tools select {
-      padding: 6px 10px;
-      font-size: 11px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 8px;
-      font-size: 12px;
-    }
-
-    thead {
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    thead th {
-      padding: 8px;
-      text-align: left;
-      color: var(--text-soft);
-      font-weight: 500;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
-    }
-
-    tbody tr {
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
-      transition: background 0.12s ease, transform 0.06s ease, box-shadow 0.12s ease;
-    }
-
-    tbody tr:last-child {
-      border-bottom: none;
-    }
-
-    tbody td {
-      padding: 7px 8px;
-    }
-
-    tbody tr:hover {
-      background: rgba(15, 23, 42, 0.97);
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
-    }
-
-    .table-empty {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    .pill-scheduled {
-      background: rgba(250, 204, 21, 0.14);
-      color: #facc15;
-      border: 1px solid rgba(250, 204, 21, 0.7);
-    }
-
-    .pill-given {
-      background: rgba(22, 163, 74, 0.16);
-      color: #4ade80;
-      border: 1px solid rgba(74, 222, 128, 0.7);
-    }
-
-    .pill-missed {
-      background: rgba(248, 113, 113, 0.18);
-      color: #fecaca;
-      border: 1px solid rgba(248, 113, 113, 0.8);
-    }
+    .toast.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+    .toast.error{border-color:rgba(248,113,113,0.7);color:#fecaca;}
   </style>
 </head>
 <body>
   <div class="app-shell">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div>
         <div class="sidebar-header">
@@ -484,10 +180,9 @@
             <div class="brand-text-sub">Smart Care Tracker</div>
           </div>
         </div>
-
         <div class="sidebar-section-title">Navigation</div>
         <ul class="nav-links">
-          <li><a href="log.html"><span class="dot"></span>Overview</a></li>
+          <li><a href="dashboard.html"><span class="dot"></span>Overview</a></li>
           <li><a href="vaccinations.html" class="active"><span class="dot"></span>Vaccinations</a></li>
           <li><a href="appointments.html"><span class="dot"></span>Appointments</a></li>
           <li><a href="profile.html"><span class="dot"></span>Child Profile</a></li>
@@ -495,14 +190,12 @@
           <li><a href="diet.html"><span class="dot"></span>Diet &amp; Nutrition</a></li>
         </ul>
       </div>
-
       <div class="sidebar-footer">
-        <span>Healthy Child, Happy Home</span>
-        <span class="badge-soft">Vaccination</span>
+        <span>Healthy child, happy home</span>
+        <span class="badge-soft">Vaccines</span>
       </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
       <header class="main-header">
         <div class="page-title">
@@ -510,13 +203,13 @@
           <div class="page-subtitle">Log and review all vaccines given to your child.</div>
         </div>
         <div class="user-chip">
-          <button class="btn-ghost" onclick="location.href='log.html'">Back to dashboard</button>
-          <div class="user-avatar">A</div>
+          <button class="btn-ghost" onclick="location.href='dashboard.html'">Back to dashboard</button>
+          <div class="user-avatar" id="user-initial">A</div>
         </div>
       </header>
 
       <section class="grid-2">
-        <!-- LEFT: ADD VACCINE -->
+        <!-- LEFT: ADD / EDIT -->
         <div class="card">
           <div class="section-header">
             <div>
@@ -526,9 +219,7 @@
             <span class="pill-label" id="vacc-count-pill">0 records</span>
           </div>
 
-          <div class="section-metrics" id="vacc-metrics">
-            <!-- Filled by JS (optional) or keep empty -->
-          </div>
+          <div class="section-metrics" id="vacc-metrics"></div>
 
           <p class="status-text">
             Use this form to add vaccines your child has received or is scheduled to receive.
@@ -551,27 +242,32 @@
               <div>
                 <label for="vaccine-status">Status</label>
                 <select id="vaccine-status">
-                  <option>Scheduled</option>
-                  <option>Given</option>
-                  <option>Missed</option>
+                  <option value="Scheduled">Scheduled</option>
+                  <option value="Given">Given</option>
+                  <option value="Missed">Missed</option>
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn-primary">Save vaccination</button>
+            <button class="btn-primary" id="vacc-submit-btn" type="submit">
+              <span>Save vaccination</span>
+            </button>
+            <p class="note-text">
+              Data is stored securely in Supabase, visible only to your account.
+            </p>
           </form>
         </div>
 
-        <!-- RIGHT: SUMMARY TABLE -->
+        <!-- RIGHT: TABLE -->
         <div class="card">
           <div class="section-header">
             <div>
-              <h2>Vaccination Timeline</h2>
-              <div class="section-sub">Recent & upcoming doses.</div>
+              <h2>Vaccination History</h2>
+              <div class="section-sub">Past and upcoming doses.</div>
             </div>
           </div>
 
-          <div class="table-tools">
-            <input type="text" id="filter-name" placeholder="Search vaccine…" />
+          <div class="filters-row">
+            <input id="filter-name" type="text" placeholder="Filter by vaccine name" />
             <select id="filter-status">
               <option value="all">All statuses</option>
               <option value="Scheduled">Scheduled</option>
@@ -589,92 +285,187 @@
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>BCG</td>
-                <td>2024-01-05</td>
-                <td>2024-01-05</td>
-                <td><span class="pill pill-given">Given</span></td>
-              </tr>
-              <tr>
-                <td>DPT</td>
-                <td>2024-03-15</td>
-                <td>-</td>
-                <td><span class="pill pill-scheduled">Scheduled</span></td>
-              </tr>
-              <tr>
-                <td>OPV</td>
-                <td>2024-04-01</td>
-                <td>-</td>
-                <td><span class="pill pill-scheduled">Scheduled</span></td>
-              </tr>
+            <tbody id="vacc-table-body">
+              <!-- rows injected by JS -->
             </tbody>
           </table>
-
         </div>
       </section>
     </main>
   </div>
 
-  <script>
-    // Simple front-end only enhancements (no backend)
-    const form = document.getElementById('vaccination-form');
-    const tableBody = document.querySelector('#vacc-table tbody');
-    const nameFilter = document.getElementById('filter-name');
-    const statusFilter = document.getElementById('filter-status');
-    const countPill = document.getElementById('vacc-count-pill');
+  <div id="toast" class="toast"></div>
 
-    function updateCount() {
-      const rows = tableBody.querySelectorAll('tr');
-      countPill.textContent = rows.length + (rows.length === 1 ? ' record' : ' records');
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://hfytpmyqvdzdehembdpr.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmeXRwbXlxdmR6ZGVoZW1iZHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNTg3NzIsImV4cCI6MjA3NzkzNDc3Mn0.IBvAlibQX4ZpQeC1FMTPgPaD-2odx42Ec0CkilSGA4Y";
+
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let vaccCache = [];
+
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast";
+      if (type === "error") toast.classList.add("error");
+      toast.classList.add("show");
+      clearTimeout(showToast._timeoutId);
+      showToast._timeoutId = setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
-    function statusToPill(status) {
-      if (status === 'Given') return '<span class="pill pill-given">Given</span>';
-      if (status === 'Missed') return '<span class="pill pill-missed">Missed</span>';
+    function setButtonLoading(buttonId, isLoading, defaultText) {
+      const btn = document.getElementById(buttonId);
+      if (!btn) return;
+      if (isLoading) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span><span>Saving...</span>';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<span>' + defaultText + '</span>';
+      }
+    }
+
+    function pillForStatus(status) {
+      const s = (status || "").toLowerCase();
+      if (s === "given") return '<span class="pill pill-given">Given</span>';
+      if (s === "missed") return '<span class="pill pill-missed">Missed</span>';
       return '<span class="pill pill-scheduled">Scheduled</span>';
     }
 
-    form.addEventListener('submit', (e) => {
+    function formatDate(dateStr) {
+      if (!dateStr) return "-";
+      const d = new Date(dateStr + "T00:00:00");
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
+    }
+
+    function renderVaccinations() {
+      const tbody = document.getElementById("vacc-table-body");
+      const nameFilter = document.getElementById("filter-name").value.trim().toLowerCase();
+      const statusFilter = document.getElementById("filter-status").value;
+      tbody.innerHTML = "";
+
+      let filtered = vaccCache.slice();
+
+      if (nameFilter) {
+        filtered = filtered.filter(r => (r.vaccine || "").toLowerCase().includes(nameFilter));
+      }
+      if (statusFilter !== "all") {
+        filtered = filtered.filter(r => (r.status || "").toLowerCase() === statusFilter.toLowerCase());
+      }
+
+      for (const row of filtered) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.vaccine || "-"}</td>
+          <td>${formatDate(row.scheduled_date)}</td>
+          <td>${formatDate(row.given_date)}</td>
+          <td>${pillForStatus(row.status)}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      const countPill = document.getElementById("vacc-count-pill");
+      countPill.textContent = `${vaccCache.length} record${vaccCache.length === 1 ? "" : "s"}`;
+
+      // metrics
+      const metricsEl = document.getElementById("vacc-metrics");
+      if (!vaccCache.length) {
+        metricsEl.innerHTML = "";
+        return;
+      }
+      const total = vaccCache.length;
+      const given = vaccCache.filter(r => (r.status || "").toLowerCase() === "given").length;
+      const scheduled = vaccCache.filter(r => (r.status || "").toLowerCase() === "scheduled").length;
+      const missed = vaccCache.filter(r => (r.status || "").toLowerCase() === "missed").length;
+
+      metricsEl.innerHTML = `
+        <div class="metric-pill"><span class="metric-label">Total</span><span class="metric-value">${total}</span></div>
+        <div class="metric-pill"><span class="metric-label">Given</span><span class="metric-value">${given}</span></div>
+        <div class="metric-pill"><span class="metric-label">Scheduled</span><span class="metric-value">${scheduled}</span></div>
+        <div class="metric-pill"><span class="metric-label">Missed</span><span class="metric-value">${missed}</span></div>
+      `;
+    }
+
+    async function getCurrentUser() {
+      const { data, error } = await sb.auth.getUser();
+      if (error || !data.user) {
+        window.location.href = "index.html";
+        return null;
+      }
+      return data.user;
+    }
+
+    async function loadVaccinations(userId) {
+      const { data, error } = await sb
+        .from("vaccinations")
+        .select("*")
+        .eq("user_id", userId)
+        .order("scheduled_date", { ascending: true });
+
+      if (error) {
+        console.error("Error loading vaccinations:", error);
+        showToast("Error loading vaccinations", "error");
+        return;
+      }
+      vaccCache = data || [];
+      renderVaccinations();
+    }
+
+    async function handleAddVaccination(e) {
       e.preventDefault();
-      const name = document.getElementById('vaccine-name').value.trim();
-      const sched = document.getElementById('vaccine-scheduled').value || '-';
-      const given = document.getElementById('vaccine-given').value || '-';
-      const status = document.getElementById('vaccine-status').value;
+      const name = document.getElementById("vaccine-name").value.trim();
+      const scheduled = document.getElementById("vaccine-scheduled").value || null;
+      const given = document.getElementById("vaccine-given").value || null;
+      const status = document.getElementById("vaccine-status").value;
 
       if (!name) return;
 
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${name}</td>
-        <td>${sched}</td>
-        <td>${given}</td>
-        <td>${statusToPill(status)}</td>
-      `;
-      tableBody.appendChild(row);
-      form.reset();
-      updateCount();
-      applyFilters();
-    });
+      const user = await getCurrentUser();
+      if (!user) return;
 
-    function applyFilters() {
-      const nameVal = nameFilter.value.trim().toLowerCase();
-      const statusVal = statusFilter.value;
-      const rows = tableBody.querySelectorAll('tr');
+      setButtonLoading("vacc-submit-btn", true, "Save vaccination");
 
-      rows.forEach(row => {
-        const vaccine = row.children[0].textContent.toLowerCase();
-        const statusText = row.children[3].textContent.trim();
-        const matchesName = !nameVal || vaccine.includes(nameVal);
-        const matchesStatus = statusVal === 'all' || statusText === statusVal;
-        row.style.display = matchesName && matchesStatus ? '' : 'none';
+      const { error } = await sb.from("vaccinations").insert({
+        user_id: user.id,
+        vaccine: name,
+        scheduled_date: scheduled,
+        given_date: given,
+        status: status
       });
+
+      setButtonLoading("vacc-submit-btn", false, "Save vaccination");
+
+      if (error) {
+        console.error("Error inserting vaccination:", error);
+        showToast("Error saving vaccination", "error");
+        alert("Error saving vaccination: " + (error.message || "check console"));
+        return;
+      }
+
+      e.target.reset();
+      document.getElementById("vaccine-status").value = "Scheduled";
+      showToast("Vaccination saved");
+      await loadVaccinations(user.id);
     }
 
-    nameFilter.addEventListener('input', applyFilters);
-    statusFilter.addEventListener('change', applyFilters);
+    document.addEventListener("DOMContentLoaded", async () => {
+      const user = await getCurrentUser();
+      if (!user) return;
 
-    updateCount();
+      const avatar = document.getElementById("user-initial");
+      const letter = (user.email || "U").charAt(0).toUpperCase();
+      avatar.textContent = letter;
+
+      document.getElementById("vaccination-form").addEventListener("submit", handleAddVaccination);
+      document.getElementById("filter-name").addEventListener("input", renderVaccinations);
+      document.getElementById("filter-status").addEventListener("change", renderVaccinations);
+
+      await loadVaccinations(user.id);
+    });
   </script>
 </body>
 </html>
