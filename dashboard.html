@@ -85,20 +85,15 @@
       font-size: 18px;
       font-weight: 700;
       color: #f9fafb;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.7);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
     }
 
-    .brand-text-main {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
+    .brand-text-main { font-size: 18px; font-weight: 600; letter-spacing: .02em; }
     .brand-text-sub {
       font-size: 11px;
       color: var(--text-soft);
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: .16em;
     }
 
     .sidebar-section-title {
@@ -106,7 +101,7 @@
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--text-soft);
-      margin: 18px 4px 10px;
+      margin: 18px 4px 8px;
     }
 
     .nav-links {
@@ -120,176 +115,91 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 9px 10px;
+      padding: 9px 11px;
       border-radius: 12px;
       text-decoration: none;
       color: var(--text-muted);
       font-size: 13px;
-      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+      transition: background .15s ease, transform .1s ease, box-shadow .15s ease, color .15s ease;
     }
 
-    .nav-links li a span.icon-dot {
+    .nav-links li a .icon-dot {
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
+      background: rgba(148, 163, 184, 0.8);
     }
 
     .nav-links li a:hover {
-      background: rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.96);
       transform: translateY(-1px);
       color: #e5e7eb;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.9);
     }
 
     .nav-links li a.active {
       background: rgba(37, 99, 235, 0.16);
+      border: 1px solid rgba(129, 140, 248, 0.9);
       color: #e5e7eb;
-      border: 1px solid rgba(129, 140, 248, 0.8);
     }
 
-    .nav-links li a.active span.icon-dot {
+    .nav-links li a.active .icon-dot {
       background: #6366f1;
     }
 
     .sidebar-footer {
       position: absolute;
-      bottom: 16px;
+      bottom: 18px;
       left: 18px;
       right: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-size: 11px;
       color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
     }
 
     .badge-soft {
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.7);
       font-size: 11px;
       color: var(--text-muted);
     }
 
-    /* MOBILE NAV TOGGLE */
+    /* MAIN */
 
-    .top-mobile-bar {
-      display: none;
-      position: sticky;
-      top: 0;
-      z-index: 25;
-      padding: 10px 14px;
-      background: rgba(15, 23, 42, 0.98);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .mobile-brand {
+    .main {
+      padding: 20px 24px 24px;
       display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .mobile-menu-toggle {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .mobile-menu-toggle span {
-      height: 2px;
-      width: 16px;
-      background: #e5e7eb;
-      position: relative;
-    }
-
-    .mobile-menu-toggle span::before,
-    .mobile-menu-toggle span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: #e5e7eb;
-    }
-
-    .mobile-menu-toggle span::before {
-      top: -5px;
-    }
-
-    .mobile-menu-toggle span::after {
-      top: 5px;
+      flex-direction: column;
+      gap: 16px;
     }
 
     @media (max-width: 900px) {
-      .sidebar {
-        position: fixed;
-        top: 46px;
-        left: 0;
-        right: 0;
-        height: calc(100vh - 46px);
-        transform: translateY(-120%);
-        transition: transform 0.2s ease-out;
-        border-right: none;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-      }
-
-      .sidebar.open {
-        transform: translateY(0);
-      }
-
-      .top-mobile-bar {
-        display: flex;
-      }
-    }
-
-    /* MAIN AREA */
-
-    .main {
-      position: relative;
-      padding: 18px 26px 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    @media (max-width: 600px) {
       .main {
-        padding: 14px 14px 20px;
+        padding: 16px;
       }
     }
 
     .main-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      justify-content: space-between;
+      gap: 16px;
       margin-bottom: 4px;
-    }
-
-    .page-title {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
     }
 
     .page-title h1 {
       font-size: 22px;
       font-weight: 600;
-      letter-spacing: 0.01em;
+      letter-spacing: .01em;
     }
 
     .page-subtitle {
       font-size: 12px;
       color: var(--text-soft);
+      margin-top: 4px;
     }
 
     .user-chip {
@@ -299,110 +209,107 @@
     }
 
     #logout-btn {
-      background: rgba(248, 113, 113, 0.12);
-      color: #fecaca;
-      border: 1px solid rgba(248, 113, 113, 0.4);
-      padding: 7px 13px;
+      padding: 7px 14px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 500;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-muted);
+      font-size: 11px;
       cursor: pointer;
-      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.6);
+      transition: background .15s ease, transform .1s ease, box-shadow .15s ease;
     }
 
     #logout-btn:hover {
-      background: rgba(248, 113, 113, 0.2);
+      background: rgba(31, 41, 55, 0.98);
       transform: translateY(-1px);
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.8);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
     }
 
     .profile-icon {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 0%, #f97316, #6366f1);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      font-weight: 700;
+      background: radial-gradient(circle at 0 0, #f97316, #6366f1);
       color: #f9fafb;
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.85);
+      font-weight: 600;
+      font-size: 15px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
     }
 
-    /* MODULES STRIP */
+    /* MODULE STRIP */
 
     .modules-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 1100px) {
+      .modules-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .modules-strip {
+        grid-template-columns: 1fr;
+      }
     }
 
     .module-card {
-      position: relative;
-      padding: 14px 14px 12px;
-      border-radius: var(--radius-lg);
-      background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(129, 140, 248, 0.4);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 10px 12px;
       cursor: pointer;
-      overflow: hidden;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border 0.18s ease;
-    }
-
-    .module-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.18), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.18s ease;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.85);
+      transition: background .18s ease, transform .1s ease, box-shadow .18s ease, border .18s ease;
     }
 
     .module-card:hover {
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 26px 60px rgba(15, 23, 42, 0.95);
+      background: rgba(31, 41, 55, 0.98);
+      transform: translateY(-1px);
+      box-shadow: 0 22px 48px rgba(15, 23, 42, 0.95);
       border-color: rgba(129, 140, 248, 0.9);
     }
 
-    .module-card:hover::after {
-      opacity: 1;
-    }
-
     .module-card.active {
-      border: 1px solid #f97316;
+      border-color: rgba(129, 140, 248, 1);
+      background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.2), rgba(15, 23, 42, 0.96));
     }
 
     .module-title-row {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      align-items: center;
+      margin-bottom: 4px;
     }
 
-    .module-card h3 {
-      font-size: 15px;
+    .module-title-row h3 {
+      font-size: 14px;
       font-weight: 600;
     }
 
     .module-chip {
-      font-size: 11px;
-      padding: 3px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-      white-space: nowrap;
+      padding: 3px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
     }
 
     .module-footnote {
       font-size: 11px;
-      margin-top: 6px;
       color: var(--text-soft);
     }
 
-    /* CARDS / SECTIONS */
+    /* GRID + CARDS */
 
     .grid-2 {
       display: grid;
@@ -491,6 +398,14 @@
       margin-bottom: 8px;
     }
 
+    .section-note {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    /* ID CARD */
+
     .id-card {
       display: flex;
       justify-content: space-between;
@@ -526,97 +441,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-soft);
-      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.06), transparent 60%);
-    }
-
-    @media (max-width: 600px) {
-      .id-card {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    }
-
-    /* FORMS */
-
-    .form-inline {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .form-inline input,
-    .form-inline select,
-    .table-tools input,
-    .table-tools select {
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.85);
-      background: rgba(15, 23, 42, 0.92);
-      color: #e5e7eb;
-      font-size: 12px;
-      outline: none;
-      transition: border 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, background 0.15s ease;
-    }
-
-    .form-inline input::placeholder,
-    .table-tools input::placeholder {
-      color: rgba(148, 163, 184, 0.8);
-    }
-
-    .form-inline input:focus,
-    .form-inline select:focus,
-    .table-tools input:focus,
-    .table-tools select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.6);
-      transform: translateY(-1px);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    .btn-small {
-      padding: 7px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(129, 140, 248, 0.9);
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: #f9fafb;
-      font-size: 12px;
-      font-weight: 500;
-      margin-top: 2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
-    }
-
-    .btn-small span.spinner {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      border: 2px solid rgba(248, 250, 252, 0.4);
-      border-top-color: #f9fafb;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .btn-small:hover:not(:disabled) {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.98);
-    }
-
-    .btn-small:disabled {
-      opacity: 0.7;
-      cursor: default;
-      box-shadow: none;
+      background: rgba(15, 23, 42, 0.9);
     }
 
     /* TABLES */
@@ -624,40 +451,36 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 8px;
+      margin-top: 6px;
       font-size: 12px;
     }
 
-    thead {
-      background: rgba(15, 23, 42, 0.96);
+    th, td {
+      text-align: left;
+      padding: 7px 6px;
     }
 
-    thead th {
-      padding: 8px 8px;
-      text-align: left;
+    th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
       color: var(--text-soft);
-      font-weight: 500;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+      border-bottom: 1px solid rgba(55, 65, 81, 0.9);
     }
 
     tbody tr {
-      border-bottom: 1px solid rgba(31, 41, 55, 0.85);
-      transition: background 0.12s ease, transform 0.06s ease, box-shadow 0.12s ease;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+      transition: background .12s ease, transform .08s ease, box-shadow .12s ease;
     }
 
     tbody tr:last-child {
       border-bottom: none;
     }
 
-    tbody td {
-      padding: 7px 8px;
-      color: #e5e7eb;
-    }
-
     tbody tr:hover {
       background: rgba(15, 23, 42, 0.96);
       transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.85);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
     }
 
     .table-empty {
@@ -666,32 +489,36 @@
       color: var(--text-soft);
     }
 
-    .skeleton-row td {
-      padding: 8px;
-    }
-
-    .skeleton {
-      width: 100%;
-      height: 8px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(148, 163, 184, 0.15), rgba(75, 85, 99, 0.7), rgba(148, 163, 184, 0.18));
-      background-size: 200% 100%;
-      animation: shimmer 1s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 0% 0; }
-      50% { background-position: 100% 0; }
-      100% { background-position: 0% 0; }
-    }
-
     .table-tools {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
-      margin-top: 8px;
-      margin-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .table-tools input,
+    .table-tools select {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 12px;
+      outline: none;
+      transition: border .15s ease, box-shadow .15s ease, transform .1s ease, background .15s ease;
+    }
+
+    .table-tools input::placeholder {
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    .table-tools input:focus,
+    .table-tools select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      transform: translateY(-1px);
     }
 
     .pill {
@@ -703,32 +530,66 @@
       font-weight: 500;
     }
 
-    .pill-scheduled {
-      background: rgba(250, 204, 21, 0.14);
-      color: #facc15;
-      border: 1px solid rgba(250, 204, 21, 0.6);
+    .pill-given {
+      background: rgba(16, 185, 129, 0.18);
+      color: #bbf7d0;
+      border: 1px solid rgba(16, 185, 129, 0.8);
     }
 
-    .pill-given,
-    .pill-completed {
-      background: rgba(22, 163, 74, 0.16);
-      color: #4ade80;
-      border: 1px solid rgba(74, 222, 128, 0.7);
-    }
-
-    .pill-missed,
-    .pill-cancelled {
+    .pill-missed {
       background: rgba(248, 113, 113, 0.18);
       color: #fecaca;
       border: 1px solid rgba(248, 113, 113, 0.8);
     }
 
-    /* PLACEHOLDER TEXT SECTIONS */
+    .pill-scheduled {
+      background: rgba(59, 130, 246, 0.16);
+      color: #bfdbfe;
+      border: 1px solid rgba(59, 130, 246, 0.7);
+    }
 
-    .section-note {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-top: 4px;
+    .pill-completed {
+      background: rgba(22, 163, 74, 0.18);
+      color: #bbf7d0;
+      border: 1px solid rgba(22, 163, 74, 0.8);
+    }
+
+    .pill-cancelled {
+      background: rgba(148, 163, 184, 0.18);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .skeleton-row .skeleton {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(31, 41, 55, 1),
+        rgba(55, 65, 81, 0.9),
+        rgba(31, 41, 55, 1)
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .link-small {
+      font-size: 11px;
+      color: #bfdbfe;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(191, 219, 254, 0.6);
+      padding-bottom: 1px;
+      cursor: pointer;
+    }
+
+    .link-small:hover {
+      color: #e5e7eb;
+      border-color: #e5e7eb;
     }
 
     /* TOAST */
@@ -772,26 +633,13 @@
         text-align: center;
       }
     }
+
   </style>
 </head>
-<body>
-  <!-- MOBILE TOP BAR -->
-  <div class="top-mobile-bar">
-    <div class="mobile-brand">
-      <div class="logo-badge">C</div>
-      <div>
-        <div class="brand-text-main" style="font-size:14px;">Child Health</div>
-        <div class="brand-text-sub" style="font-size:9px;">Dashboard</div>
-      </div>
-    </div>
-    <div class="mobile-menu-toggle" onclick="toggleMenu()">
-      <span></span>
-    </div>
-  </div>
-
+<body id="top">
   <div class="app-shell">
     <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
       <div class="sidebar-header">
         <div class="logo-badge">C</div>
         <div>
@@ -803,25 +651,25 @@
       <div class="sidebar-section-title">Navigation</div>
       <ul class="nav-links" id="nav-links">
         <li><a href="#top" class="active"><span class="icon-dot"></span>Overview</a></li>
-        <li><a href="#section-vaccination"><span class="icon-dot"></span>Vaccinations</a></li>
-        <li><a href="#section-appointments"><span class="icon-dot"></span>Appointments</a></li>
-        <li><a href="#section-id"><span class="icon-dot"></span>Child Profile</a></li>
-        <li><a href="#section-history"><span class="icon-dot"></span>Medical History</a></li>
-        <li><a href="#section-diet"><span class="icon-dot"></span>Diet &amp; Nutrition</a></li>
+        <li><a href="vaccinations.html"><span class="icon-dot"></span>Vaccinations</a></li>
+        <li><a href="appointments.html"><span class="icon-dot"></span>Appointments</a></li>
+        <li><a href="profile.html"><span class="icon-dot"></span>Child Profile</a></li>
+        <li><a href="history.html"><span class="icon-dot"></span>Medical History</a></li>
+        <li><a href="diet.html"><span class="icon-dot"></span>Diet &amp; Nutrition</a></li>
       </ul>
 
       <div class="sidebar-footer">
-        <span>Healthy Child, Happy Home</span>
-        <span class="badge-soft">Beta</span>
+        <span>Overview only · Read-only</span>
+        <span class="badge-soft">Dashboard</span>
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="main" id="top">
+    <!-- MAIN -->
+    <main class="main">
       <header class="main-header">
         <div class="page-title">
           <h1>Child Health Dashboard</h1>
-          <div class="page-subtitle">Track vaccinations, appointments &amp; profile in one place.</div>
+          <div class="page-subtitle">Overview of vaccinations, visits, profile, history and diet.</div>
         </div>
         <div class="user-chip">
           <button id="logout-btn">Logout</button>
@@ -858,9 +706,9 @@
         <div class="module-card" data-target="#section-history">
           <div class="module-title-row">
             <h3>Medical History</h3>
-            <span class="module-chip">Coming soon</span>
+            <span class="module-chip">Overview</span>
           </div>
-          <div class="module-footnote">Allergies &amp; past illnesses.</div>
+          <div class="module-footnote">See recent illnesses &amp; notes.</div>
         </div>
       </section>
 
@@ -880,7 +728,7 @@
           <div class="id-card">
             <div class="id-primary">
               <span class="label-small">Child Name</span>
-              <div class="id-name-display" id="id-name">Loading...</div>
+              <div class="id-name-display" id="id-name">Loading.</div>
               <span class="label-small" style="margin-top:6px;">Parent Email</span>
               <div id="id-parent-email" style="font-size:13px;">-</div>
             </div>
@@ -902,27 +750,11 @@
           <div class="section-metrics" id="vacc-metrics"></div>
 
           <p class="status-text" id="vaccination-status">
-            Add vaccination details to build an accurate history.
+            Showing vaccination records (read-only). Use the Vaccinations page to add or edit records.
           </p>
 
-          <form id="vaccination-form">
-            <div class="form-inline">
-              <input type="text" id="vac-vaccine" placeholder="Vaccine name · e.g. DPT" required />
-              <input type="date" id="vac-scheduled" />
-              <input type="date" id="vac-given" />
-              <select id="vac-status">
-                <option value="Scheduled">Scheduled</option>
-                <option value="Given">Given</option>
-                <option value="Missed">Missed</option>
-              </select>
-            </div>
-            <button type="submit" class="btn-small" id="vac-submit-btn">
-              <span>Save Vaccination</span>
-            </button>
-          </form>
-
           <div class="table-tools">
-            <input type="text" id="vacc-search" placeholder="Search vaccine..." />
+            <input type="text" id="vacc-search" placeholder="Search vaccine." />
             <select id="vacc-filter-status">
               <option value="all">All statuses</option>
               <option value="Scheduled">Scheduled only</option>
@@ -952,7 +784,7 @@
         </div>
       </section>
 
-      <!-- APPOINTMENTS + FUTURE MODULES -->
+      <!-- APPOINTMENTS + HISTORY/DIET -->
       <section class="grid-2">
         <!-- APPOINTMENTS -->
         <div class="card" id="section-appointments">
@@ -966,24 +798,8 @@
           <div class="section-metrics" id="app-metrics"></div>
 
           <p class="status-text" id="appointments-status">
-            Add upcoming or past doctor visits to keep everything organized.
+            Showing appointments (read-only). Use the Appointments page to add or edit visits.
           </p>
-
-          <form id="appointments-form">
-            <div class="form-inline">
-              <input type="date" id="app-date" required />
-              <input type="text" id="app-purpose" placeholder="Purpose · e.g. Routine checkup" required />
-              <input type="text" id="app-doctor" placeholder="Doctor name (optional)" />
-              <select id="app-status">
-                <option value="Scheduled">Scheduled</option>
-                <option value="Completed">Completed</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
-            </div>
-            <button type="submit" class="btn-small" id="app-submit-btn">
-              <span>Save Appointment</span>
-            </button>
-          </form>
 
           <div class="table-tools">
             <select id="app-filter-status">
@@ -1014,28 +830,40 @@
           </table>
         </div>
 
-        <!-- FUTURE MODULES -->
+        <!-- HISTORY + DIET OVERVIEW (right column, same layout, no forms) -->
         <div>
+          <!-- MEDICAL HISTORY OVERVIEW -->
           <div class="card" id="section-history">
             <h2 class="section-title">
               <span class="label">Medical History</span>
-              <span class="section-pill">Coming Soon</span>
+              <span class="section-pill" id="history-total-chip">Total records: 0</span>
             </h2>
-            <p class="section-note">
-              This area will show a timeline of past illnesses, allergies, and critical notes related to your child’s
-              health. You’ll be able to attach notes to visits and vaccinations for a complete record.
+            <p class="status-text">
+              Recent medical events (read-only). Use the Medical History page to add or edit records.
             </p>
+            <p class="section-note" id="history-main-line">No history recorded.</p>
+            <p class="section-note" id="history-sub-line">
+              Add visits, allergies or illnesses in the Medical History page.
+            </p>
+            <div style="margin-top:8px;">
+              <a class="link-small" href="history.html">View medical history →</a>
+            </div>
           </div>
 
+          <!-- DIET OVERVIEW -->
           <div class="card" id="section-diet">
             <h2 class="section-title">
               <span class="label">Diet &amp; Nutrition</span>
-              <span class="section-pill">Coming Soon</span>
+              <span class="section-pill" id="diet-total-chip">Total logged: 0</span>
             </h2>
-            <p class="section-note">
-              Plan meals, track growth milestones, and keep an eye on your child’s daily nutrition once this module is
-              available.
+            <p class="status-text">
+              Summary from your diet logs (read-only). Use the Diet & Nutrition page to add or edit meals.
             </p>
+            <p class="section-note" id="diet-today-count">0 meals today</p>
+            <p class="section-note" id="diet-last-text">No recent meals logged.</p>
+            <div style="margin-top:8px;">
+              <a class="link-small" href="diet.html">View diet &amp; nutrition →</a>
+            </div>
           </div>
         </div>
       </section>
@@ -1045,7 +873,6 @@
   <!-- Toast -->
   <div id="toast"></div>
 
-  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL = "https://hfytpmyqvdzdehembdpr.supabase.co";
@@ -1057,27 +884,11 @@
     let vaccinationCache = [];
     let appointmentsCache = [];
 
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("open");
-    }
-
     function setProfileIcon(user) {
       const profileIcon = document.getElementById("profile-icon");
       const email = user.email || "";
       const letter = email ? email.charAt(0).toUpperCase() : "U";
       profileIcon.textContent = letter;
-    }
-
-    function pillForStatus(status) {
-      if (!status) return "-";
-      const s = status.toLowerCase();
-      if (s === "given") return '<span class="pill pill-given">Given</span>';
-      if (s === "missed") return '<span class="pill pill-missed">Missed</span>';
-      if (s === "completed") return '<span class="pill pill-completed">Completed</span>';
-      if (s === "cancelled") return '<span class="pill pill-cancelled">Cancelled</span>';
-      if (s === "scheduled") return '<span class="pill pill-scheduled">Scheduled</span>';
-      return status;
     }
 
     function showToast(message, type = "success") {
@@ -1093,16 +904,15 @@
       }, 2500);
     }
 
-    function setButtonLoading(buttonId, isLoading, defaultText) {
-      const btn = document.getElementById(buttonId);
-      if (!btn) return;
-      if (isLoading) {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner"></span><span>Saving...</span>';
-      } else {
-        btn.disabled = false;
-        btn.innerHTML = '<span>' + defaultText + '</span>';
-      }
+    function pillForStatus(status) {
+      if (!status) return "-";
+      const s = status.toLowerCase();
+      if (s === "given") return '<span class="pill pill-given">Given</span>';
+      if (s === "missed") return '<span class="pill pill-missed">Missed</span>';
+      if (s === "completed") return '<span class="pill pill-completed">Completed</span>';
+      if (s === "cancelled") return '<span class="pill pill-cancelled">Cancelled</span>';
+      if (s === "scheduled") return '<span class="pill pill-scheduled">Scheduled</span>';
+      return status;
     }
 
     function formatDate(dateStr) {
@@ -1129,7 +939,7 @@
       const nameEl = document.getElementById("id-name");
       const emailEl = document.getElementById("id-parent-email");
 
-      nameEl.textContent = "Loading...";
+      nameEl.textContent = "Loading.";
       emailEl.textContent = user.email || "";
 
       const { data: row, error } = await sb
@@ -1151,6 +961,8 @@
         emailEl.textContent = row.email || user.email || "";
       }
     }
+
+    /* VACCINATIONS (READ-ONLY) */
 
     function renderVaccinationMetrics(data) {
       const metricsEl = document.getElementById("vacc-metrics");
@@ -1202,7 +1014,7 @@
       }
 
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No vaccination records match this filter.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No vaccinations match this filter.</td></tr>';
         return;
       }
 
@@ -1246,16 +1058,16 @@
         .order("scheduled_date", { ascending: true });
 
       if (error) {
-        console.error("Vaccination fetch error:", error);
+        console.error("Vaccinations fetch error:", error);
         tbody.innerHTML = '<tr><td colspan="4" class="table-empty">Error loading data</td></tr>';
-        statusEl.textContent = "Error loading vaccination records.";
+        statusEl.textContent = "Error loading vaccinations.";
         countPill.textContent = "0 records";
         return;
       }
 
       if (!data || data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No vaccination records yet. Please add above.</td></tr>';
-        statusEl.textContent = "No vaccination records found yet.";
+        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No vaccinations yet.</td></tr>';
+        statusEl.textContent = "No vaccinations found yet.";
         countPill.textContent = "0 records";
         metricsEl.innerHTML = "";
         vaccinationCache = [];
@@ -1263,51 +1075,13 @@
       }
 
       vaccinationCache = data;
-      statusEl.textContent = "Showing vaccination records.";
+      statusEl.textContent = "Showing vaccination records (read-only).";
       countPill.textContent = data.length + (data.length === 1 ? " record" : " records");
       renderVaccinationMetrics(data);
       renderVaccinationRows();
     }
 
-    async function addVaccination(e) {
-      e.preventDefault();
-
-      const vaccine = document.getElementById("vac-vaccine").value.trim();
-      const scheduled = document.getElementById("vac-scheduled").value || null;
-      const given = document.getElementById("vac-given").value || null;
-      const status = document.getElementById("vac-status").value;
-
-      if (!vaccine) return;
-
-      setButtonLoading("vac-submit-btn", true, "Save Vaccination");
-
-      const { error } = await sb
-        .from("vaccinations")
-        .insert({
-          vaccine: vaccine,
-          scheduled_date: scheduled,
-          given_date: given,
-          status: status
-        });
-
-      setButtonLoading("vac-submit-btn", false, "Save Vaccination");
-
-      if (error) {
-        console.error("Error inserting vaccination:", error);
-        showToast("Error saving vaccination", "error");
-        alert("Error saving vaccination: " + (error.message || "check console"));
-        return;
-      }
-
-      e.target.reset();
-      document.getElementById("vac-status").value = "Scheduled";
-      showToast("Vaccination saved");
-
-      const user = await getCurrentUser();
-      if (user) {
-        await loadVaccinations(user.id);
-      }
-    }
+    /* APPOINTMENTS (READ-ONLY) */
 
     function renderAppointmentMetrics(data) {
       const metricsEl = document.getElementById("app-metrics");
@@ -1405,7 +1179,7 @@
       }
 
       if (!data || data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No appointments yet. Please add above.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No appointments yet.</td></tr>';
         statusEl.textContent = "No appointments found yet.";
         countPill.textContent = "0 appointments";
         metricsEl.innerHTML = "";
@@ -1414,51 +1188,91 @@
       }
 
       appointmentsCache = data;
-      statusEl.textContent = "Showing appointments.";
+      statusEl.textContent = "Showing appointments (read-only).";
       countPill.textContent = data.length + (data.length === 1 ? " appointment" : " appointments");
       renderAppointmentMetrics(data);
       renderAppointmentRows();
     }
 
-    async function addAppointment(e) {
-      e.preventDefault();
+    /* MEDICAL HISTORY OVERVIEW (READ-ONLY) */
 
-      const date = document.getElementById("app-date").value;
-      const purpose = document.getElementById("app-purpose").value.trim();
-      const doctor = document.getElementById("app-doctor").value.trim() || null;
-      const status = document.getElementById("app-status").value;
+    async function loadHistoryOverview(userId) {
+      const mainEl = document.getElementById("history-main-line");
+      const subEl = document.getElementById("history-sub-line");
+      const chip = document.getElementById("history-total-chip");
 
-      if (!date || !purpose) return;
-
-      setButtonLoading("app-submit-btn", true, "Save Appointment");
-
-      const { error } = await sb
-        .from("appointments")
-        .insert({
-          date: date,
-          purpose: purpose,
-          doctor: doctor,
-          status: status
-        });
-
-      setButtonLoading("app-submit-btn", false, "Save Appointment");
+      const { data, error } = await sb
+        .from("medical_history")
+        .select("date, type, summary, doctor")
+        .eq("user_id", userId)
+        .order("date", { ascending: false });
 
       if (error) {
-        console.error("Error inserting appointment:", error);
-        showToast("Error saving appointment", "error");
-        alert("Error saving appointment: " + (error.message || "check console"));
+        console.error("Error loading medical history:", error);
+        mainEl.textContent = "Error loading history";
+        subEl.textContent = "Please check Supabase configuration.";
+        chip.textContent = "Total records: 0";
         return;
       }
 
-      e.target.reset();
-      document.getElementById("app-status").value = "Scheduled";
-      showToast("Appointment saved");
+      const rows = data || [];
+      chip.textContent = "Total records: " + rows.length;
 
-      const user = await getCurrentUser();
-      if (user) {
-        await loadAppointments(user.id);
+      if (rows.length === 0) {
+        mainEl.textContent = "No history recorded.";
+        subEl.textContent = "Add visits, allergies or illnesses in the Medical History page.";
+        return;
       }
+
+      const last = rows[0];
+      const dateStr = formatDate(last.date);
+      const typeStr = last.type || "Visit";
+      const docStr = last.doctor ? " · " + last.doctor : "";
+
+      mainEl.textContent = `${typeStr}${docStr}`;
+      subEl.textContent = `${dateStr} – ${last.summary || "No summary"}`;
     }
+
+    /* DIET OVERVIEW (READ-ONLY) */
+
+    async function loadDietOverview(userId) {
+      const todayCountEl = document.getElementById("diet-today-count");
+      const lastTextEl = document.getElementById("diet-last-text");
+      const totalChip = document.getElementById("diet-total-chip");
+
+      const { data, error } = await sb
+        .from("diet_logs")
+        .select("date, type, summary")
+        .eq("user_id", userId)
+        .order("date", { ascending: false });
+
+      if (error) {
+        console.error("Error loading diet logs:", error);
+        todayCountEl.textContent = "0 meals today";
+        lastTextEl.textContent = "Error loading diet logs.";
+        totalChip.textContent = "Total logged: 0";
+        return;
+      }
+
+      const rows = data || [];
+      const total = rows.length;
+      totalChip.textContent = "Total logged: " + total;
+
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const todayMeals = rows.filter(r => r.date === todayStr);
+      todayCountEl.textContent = todayMeals.length + (todayMeals.length === 1 ? " meal today" : " meals today");
+
+      if (rows.length === 0) {
+        lastTextEl.textContent = "No recent meals logged.";
+        return;
+      }
+
+      const last = rows[0];
+      const dateStr = formatDate(last.date);
+      lastTextEl.textContent = `${dateStr} – ${last.type || "Meal"}: ${last.summary || "No details"}`;
+    }
+
+    /* UI HELPERS */
 
     function initModuleCardScroll() {
       const cards = document.querySelectorAll(".module-card");
@@ -1500,20 +1314,21 @@
 
       const userId = user.id;
 
-      document.getElementById("vaccination-form").addEventListener("submit", addVaccination);
-      document.getElementById("appointments-form").addEventListener("submit", addAppointment);
-
       document.getElementById("logout-btn").addEventListener("click", async () => {
         await sb.auth.signOut();
         window.location.href = "index.html";
       });
 
+      // READ-ONLY data loads
+      loadVaccinations(userId);
+      loadAppointments(userId);
+      loadHistoryOverview(userId);
+      loadDietOverview(userId);
+
+      // filters/search
       document.getElementById("vacc-search").addEventListener("input", renderVaccinationRows);
       document.getElementById("vacc-filter-status").addEventListener("change", renderVaccinationRows);
       document.getElementById("app-filter-status").addEventListener("change", renderAppointmentRows);
-
-      await loadVaccinations(userId);
-      await loadAppointments(userId);
     });
   </script>
 </body>
